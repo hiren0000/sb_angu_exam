@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class UserRole
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userRoleId;
 
 
@@ -18,6 +18,11 @@ public class UserRole
     private Role role;
 
     public UserRole() {
+    }
+
+    public UserRole(User user, Role role) {
+        this.user = user;
+        this.role = role;
     }
 
     public Integer getUserRoleId() {
