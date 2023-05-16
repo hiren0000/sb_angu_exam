@@ -28,7 +28,7 @@ public class Application implements CommandLineRunner {
 	{
 		System.out.println("Code started");
 
-		User user = new User();
+	/*	User user = new User();
 		user.setUserName("hiru");
 		user.setFirstName("Hiren");
 		user.setLastName("Dev");
@@ -46,7 +46,7 @@ public class Application implements CommandLineRunner {
 		User createdUser = this.userService.createUser(user, userRolesSet);
 
 		System.out.println(createdUser.getUserName());
-
+*/
 
 
 
