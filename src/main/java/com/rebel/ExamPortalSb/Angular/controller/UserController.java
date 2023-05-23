@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/users/")
+
 public class UserController
 {
     @Autowired
@@ -31,7 +33,7 @@ public class UserController
 
         roles.add(new UserRole(user, role));
 
-        return new ResponseEntity<>(this.userService.createUser(user, roles), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.userService.createUser(user, roles), HttpStatus.OK);
     }
 
 
