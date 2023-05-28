@@ -1,43 +1,93 @@
 package com.rebel.ExamPortalSb.Angular.controller;
 
-import com.rebel.ExamPortalSb.Angular.util.ApiRepsonse;
+import com.rebel.ExamPortalSb.Angular.models.User;
+import com.rebel.ExamPortalSb.Angular.payloads.JwtRequest;
+import com.rebel.ExamPortalSb.Angular.payloads.JwtResponse;
+import com.rebel.ExamPortalSb.Angular.payloads.JwtUtil;
+
+import com.rebel.ExamPortalSb.Angular.util.CustomerUserDetailService;
 import com.rebel.ExamPortalSb.Angular.util.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
-@CrossOrigin
-@RequestMapping("/api/v1/users/")
+@CrossOrigin("*")
+@RequestMapping("/api/v1/auth")
 public class Authentication
 {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @GetMapping("/login")
-    public ResponseEntity<ApiRepsonse> userLog(@RequestBody Logging login) throws Exception
+    @Autowired
+    private CustomerUserDetailService customerUserDetailService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    //generate token
+
+    @PostMapping("/generate-token")
+    public ResponseEntity<JwtResponse> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception
     {
-        authenticate(login.getUserName(), login.getPassword());
-        return new ResponseEntity<ApiRepsonse>(new ApiRepsonse("Logged in successfully"), HttpStatus.OK);
+
+        try
+        {
+            authenticate(jwtRequest.getUserName(), jwtRequest.getPassword());
+
+            System.out.println(jwtRequest.getUserName());
+        }
+        catch (UsernameNotFoundException e)
+        {
+            e.printStackTrace();
+            throw new Exception("User not found ");
+        }
+
+        //authenticated user
+
+        UserDetails userDetails = this.customerUserDetailService.loadUserByUsername(jwtRequest.getUserName());
+        String token = this.jwtUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse(token));
+
     }
 
 
-    //authentication manager
-    private void authenticate(String email, String password) throws Exception
+
+
+    private void authenticate(String username, String password) throws Exception
     {
         try
         {
-            this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
         }
-        catch(Exception e)
+        catch (DisabledException e)
         {
-            throw new Exception("Bad Credential"+ e);
+            throw new DisabledException(" USER IS DISABLED ");
+        }
+        catch(BadCredentialsException e)
+        {
+            throw new Exception("Invalid Credentials "+ e);
         }
 
     }
 
 
+    // returning the details of current user
+    @GetMapping("/current-user")
+    public User getCurrentUser(Principal principal)
+    {
+        return (User)this.customerUserDetailService.loadUserByUsername(principal.getName());
+    }
 }
+
