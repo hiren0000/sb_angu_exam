@@ -5,7 +5,10 @@ import com.rebel.ExamPortalSb.Angular.models.UserRole;
 import com.rebel.ExamPortalSb.Angular.repo.RoleRepo;
 import com.rebel.ExamPortalSb.Angular.repo.UserRepo;
 import com.rebel.ExamPortalSb.Angular.service.UserService;
+import com.rebel.ExamPortalSb.Angular.util.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -51,5 +54,14 @@ public class UserServiceImpl implements UserService
         }
 
         return local;
+    }
+
+
+
+
+    @Override
+    public User getUser(String username)
+    {
+        return this.userRepo.findByUserName(username);
     }
 }

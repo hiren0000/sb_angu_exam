@@ -20,6 +20,7 @@ public class CustomerUserDetailService implements UserDetailsService
         User user =  this.userRepo.findByUserName(username);
                  if(user == null)
                  {
+                     System.out.println("User not found with this username: " + username);
                      throw new UsernameNotFoundException("User does not exists !!");
 
                  }

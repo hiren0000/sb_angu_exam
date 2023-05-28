@@ -37,5 +37,13 @@ public class UserController
     }
 
 
+    //get user by username
+    @GetMapping("/{userName}")
+    public User getUser(@PathVariable  String userName)
+    {
+        return this.userService.getUser(userName);
+    }
+
+
 
 }
