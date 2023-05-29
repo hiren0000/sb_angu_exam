@@ -7,6 +7,7 @@ import com.rebel.ExamPortalSb.Angular.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -21,12 +22,18 @@ public class UserController
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     //creating user
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody User user)
     {
         Set<UserRole> roles = new HashSet<>();
+
+        //Encoding password will enable it later :
+        //this.bCryptPasswordEncoder.encode(user.getPassword());
 
         //USER must be normal user through the Registration 
         Role role = new Role(45, "NORMAL");
