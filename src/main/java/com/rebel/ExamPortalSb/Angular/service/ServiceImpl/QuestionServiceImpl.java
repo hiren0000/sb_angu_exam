@@ -5,9 +5,11 @@ import com.rebel.ExamPortalSb.Angular.models.exams.Quiz;
 import com.rebel.ExamPortalSb.Angular.repo.QuestionRepo;
 import com.rebel.ExamPortalSb.Angular.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class QuestionServiceImpl implements QuestionService
 {
     @Autowired

@@ -5,11 +5,13 @@ import com.rebel.ExamPortalSb.Angular.models.exams.Category;
 import com.rebel.ExamPortalSb.Angular.repo.CategoryRepo;
 import com.rebel.ExamPortalSb.Angular.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class CategoryServiceImpl implements CategoryService
 {
     @Autowired
