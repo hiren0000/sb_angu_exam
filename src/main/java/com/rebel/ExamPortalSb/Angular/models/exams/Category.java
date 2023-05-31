@@ -3,7 +3,9 @@ package com.rebel.ExamPortalSb.Angular.models.exams;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +22,7 @@ public class Category
 
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Quiz> quizzes = new LinkedHashSet<>();
+    private List<Quiz> quizzes = new ArrayList<>();
 
     public Category() {
     }
@@ -55,11 +57,11 @@ public class Category
         this.description = description;
     }
 
-    public Set<Quiz> getQuizzes() {
+    public List<Quiz> getQuizzes() {
         return quizzes;
     }
 
-    public void setQuizzes(Set<Quiz> quizzes) {
+    public void setQuizzes(List<Quiz> quizzes) {
         this.quizzes = quizzes;
     }
 }
