@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/category")
 public class CategoryController
