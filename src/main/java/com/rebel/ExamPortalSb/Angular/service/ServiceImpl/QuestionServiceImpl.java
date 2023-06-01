@@ -1,6 +1,6 @@
 package com.rebel.ExamPortalSb.Angular.service.ServiceImpl;
 
-import com.rebel.ExamPortalSb.Angular.models.exams.Questions;
+import com.rebel.ExamPortalSb.Angular.models.exams.Question;
 import com.rebel.ExamPortalSb.Angular.models.exams.Quiz;
 import com.rebel.ExamPortalSb.Angular.repo.QuestionRepo;
 import com.rebel.ExamPortalSb.Angular.service.QuestionService;
@@ -17,28 +17,28 @@ public class QuestionServiceImpl implements QuestionService
 
     // Add question
     @Override
-    public Questions addQuestion(Questions questions)
+    public Question addQuestion(Question question)
     {
-        return this.questionRepo.save(questions);
+        return this.questionRepo.save(question);
     }
 
     //update question
     @Override
-    public Questions updateQuestion(Questions questions)
+    public Question updateQuestion(Question question)
     {
-        return this.questionRepo.save(questions);
+        return this.questionRepo.save(question);
     }
 
     //get list of questions
     @Override
-    public List<Questions> getAllQues()
+    public List<Question> getAllQues()
     {
         return this.questionRepo.findAll();
     }
 
     //get single question
     @Override
-    public Questions getSingleQuestions(Integer quesId)
+    public Question getSingleQuestions(Integer quesId)
     {
         return this.questionRepo.findById(quesId).get();
     }
@@ -47,14 +47,14 @@ public class QuestionServiceImpl implements QuestionService
     @Override
     public void deleteQuestionS(Integer quesId)
     {
-        Questions question = this.questionRepo.findById(quesId).get();
+        Question question = this.questionRepo.findById(quesId).get();
 
         this.questionRepo.delete(question);
     }
 
     //getting specific quiz questions
     @Override
-    public List<Questions> getQuestionsOfQuiz(Quiz quiz)
+    public List<Question> getQuestionsOfQuiz(Quiz quiz)
     {
         return this.questionRepo.findByQuiz(quiz);
     }

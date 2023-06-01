@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "exam_questions")
-public class Questions
+public class Question
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class Questions
     @ManyToOne(fetch = FetchType.EAGER)
     private Quiz quiz;
 
-    public Questions() {
+    public Question() {
     }
 
-    public Questions(String content, String image, String option1, String option2, String option3, String option4, String answer, Quiz quiz) {
+    public Question(String content, String image, String option1, String option2, String option3, String option4, String answer, Quiz quiz) {
         this.content = content;
         this.image = image;
         this.option1 = option1;

@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="exam_quiz")
@@ -32,7 +30,7 @@ public class Quiz
 
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Questions> questions = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 
     public Quiz() {
     }
@@ -102,11 +100,11 @@ public class Quiz
         this.category = category;
     }
 
-    public List<Questions> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Questions> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 }
