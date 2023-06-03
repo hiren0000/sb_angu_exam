@@ -25,7 +25,10 @@ public class Quiz
 
     private boolean active = false;
 
-    @ManyToOne
+    //only use fetch function one side and specially on top of here
+    //Deleting operation was prevented earlier because I have used fetch at other side of mapping, I mean
+    //on top of quizzes
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
