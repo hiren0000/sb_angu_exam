@@ -89,4 +89,21 @@ public class QuestionController
 
     }
 
+
+
+    // to get all questions by Quiz for Admin
+    @GetMapping("/quiz/all/{qId}")
+    public ResponseEntity<?> getAllQuestionOfQuiz(@PathVariable Integer qId)
+    {
+        Quiz quiz = new Quiz();
+        quiz.setqId(qId);
+        List<Question> questionsOfQuiz =  this.questionService.getQuestionsOfQuiz(quiz);
+
+        return ResponseEntity.ok(questionsOfQuiz);
+
+
+
+    }
+
+
 }

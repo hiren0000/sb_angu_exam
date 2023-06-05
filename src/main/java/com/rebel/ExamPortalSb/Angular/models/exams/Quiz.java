@@ -17,6 +17,7 @@ public class Quiz
 
     private String title;
 
+    @Column(length = 5000)
     private String description;
 
     private String maxMarks;
@@ -31,7 +32,7 @@ public class Quiz
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Question> questions = new ArrayList<>();
 
