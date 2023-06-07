@@ -50,6 +50,7 @@ public class QuizController
 
     }
 
+
     //Delete quiz
     @DeleteMapping("/{qId}")
     public void deleteCate(@PathVariable Integer qId)
@@ -57,12 +58,33 @@ public class QuizController
         this.quizService.deleteQuiz(qId);
     }
 
+
     //Getting List of Quizzes by category
     @GetMapping("/category/{cId}")
     public ResponseEntity<List<Quiz>> getAllQuizByCat(@PathVariable Integer cId)
     {
         return ResponseEntity.ok(this.quizService.getQuizzesByCategory(cId));
     }
+
+
+    //Get only Activated Quizzes
+    @GetMapping("/active")
+    public ResponseEntity<List<Quiz>> getQuizzesAc()
+    {
+        return ResponseEntity.ok(this.quizService.getActiveQuizzes());
+    }
+
+
+    //Get
+    @GetMapping("/category/active/{cId}")
+    public ResponseEntity<List<Quiz>> getAllActiveQuizByCat(@PathVariable Integer cId)
+    {
+        Category category = new Category();
+        category.setcId(cId);
+
+        return ResponseEntity.ok(this.quizService.getActiveQuizzesOfCategory(category));
+    }
+
 
 
 }

@@ -24,7 +24,7 @@ public class Quiz
 
     private String numberOfQuestions;
 
-    private boolean active = false;
+    private Boolean active = false;
 
     //only use fetch function one side and specially on top of here
     //Deleting operation was prevented earlier because I have used fetch at other side of mapping, I mean
@@ -39,7 +39,7 @@ public class Quiz
     public Quiz() {
     }
 
-    public Quiz(String title, String description, String maxMarks, String numberOfQuestions, boolean active)
+    public Quiz(String title, String description, String maxMarks, String numberOfQuestions, Boolean active)
     {
         this.title = title;
         this.description = description;
@@ -88,11 +88,11 @@ public class Quiz
         this.numberOfQuestions = numberOfQuestions;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
