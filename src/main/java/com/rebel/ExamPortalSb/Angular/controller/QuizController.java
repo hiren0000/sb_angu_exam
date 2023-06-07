@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/quiz")
@@ -53,6 +55,13 @@ public class QuizController
     public void deleteCate(@PathVariable Integer qId)
     {
         this.quizService.deleteQuiz(qId);
+    }
+
+    //Getting List of Quizzes by category
+    @GetMapping("/category/{cId}")
+    public ResponseEntity<List<Quiz>> getAllQuizByCat(@PathVariable Integer cId)
+    {
+        return ResponseEntity.ok(this.quizService.getQuizzesByCategory(cId));
     }
 
 

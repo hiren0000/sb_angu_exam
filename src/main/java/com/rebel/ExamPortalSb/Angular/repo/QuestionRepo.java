@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface QuestionRepo extends JpaRepository<Question, Integer>
 {
+    //getting the list of quizzes by category
     List<Question> findByQuiz(Quiz quiz);
 }

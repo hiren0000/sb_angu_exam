@@ -23,4 +23,7 @@ public interface QuizService
     //delete quiz
     public void deleteQuiz(Integer qId);
 
+    //Getting quiz by category Id
+    public List<Quiz> getQuizzesByCategory(Integer cId);
+
 }

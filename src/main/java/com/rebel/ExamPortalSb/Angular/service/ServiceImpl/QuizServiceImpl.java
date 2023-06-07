@@ -1,10 +1,12 @@
 package com.rebel.ExamPortalSb.Angular.service.ServiceImpl;
 
+import com.rebel.ExamPortalSb.Angular.models.exams.Category;
 import com.rebel.ExamPortalSb.Angular.models.exams.Quiz;
 import com.rebel.ExamPortalSb.Angular.repo.QuizRepo;
 import com.rebel.ExamPortalSb.Angular.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -50,5 +52,16 @@ public class QuizServiceImpl implements QuizService
 
         this.quizRepo.delete(quiz);
 
+    }
+
+    //getting List of quizzes by category
+    @Override
+    public List<Quiz> getQuizzesByCategory(Integer cId) {
+        Category category = new Category();
+        category.setcId(cId);
+
+        List<Quiz> quizzes = this.quizRepo.findByCategory(category);
+
+        return quizzes;
     }
 }
