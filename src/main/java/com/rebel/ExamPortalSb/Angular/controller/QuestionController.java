@@ -5,6 +5,7 @@ import com.rebel.ExamPortalSb.Angular.models.exams.Quiz;
 import com.rebel.ExamPortalSb.Angular.repo.QuizRepo;
 import com.rebel.ExamPortalSb.Angular.service.QuestionService;
 import com.rebel.ExamPortalSb.Angular.service.QuizService;
+import com.rebel.ExamPortalSb.Angular.util.ApiRepsonse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
@@ -103,6 +105,41 @@ public class QuestionController
 
 
 
+    }
+
+    //Calculating Quiz marks
+    @PostMapping("/eval-quiz")
+    public ResponseEntity<?> evalQuiz(@RequestBody List<Question> questions)
+    {
+
+        Double gotTotalMarks = 0.0;
+        Integer correctAnswers = 0;
+        Integer attempted = 0;
+
+       for(Question q : questions)
+       {
+           //get question by id
+           Question localQuestion = this.questionService.getSingleQuestions(q.getQuesId());
+
+           if (localQuestion.getAnswer().equals(q.getGivenAnswer()))
+           {
+               //correct
+               correctAnswers++;
+
+               //calculating marks on the basis of quiz max marks
+               double singMark = Double.parseDouble(questions.get(0).getQuiz().getMaxMarks())/questions.size();
+               gotTotalMarks += singMark;
+           }
+
+           if(q.getGivenAnswer() != null)
+           {
+               //--this will give us the attempting quizzes---
+               attempted++;
+           }
+       }
+
+        Map<String, Object> map = Map.of("gotTotalMarks", gotTotalMarks, "correct", correctAnswers, "attemptQuestions", attempted);
+        return ResponseEntity.ok(map);
     }
 
 

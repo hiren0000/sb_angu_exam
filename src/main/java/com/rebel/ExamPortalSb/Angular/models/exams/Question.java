@@ -1,5 +1,7 @@
 package com.rebel.ExamPortalSb.Angular.models.exams;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,7 +23,10 @@ public class Question
     private String option3;
     private String option4;
 
+    @Transient
+    private String givenAnswer;
     @Column(length = 1000)
+    @JsonIgnore
     private String answer;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -30,15 +35,17 @@ public class Question
     public Question() {
     }
 
-    public Question(String content, String image, String option1, String option2, String option3, String option4, String answer, Quiz quiz) {
+    public Question(String content, String image, String option1, String option2, String option3, String option4,String givenAnswer, String answer, Quiz quiz) {
         this.content = content;
         this.image = image;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
+        this.givenAnswer = givenAnswer;
         this.answer = answer;
         this.quiz = quiz;
+
     }
 
     public Integer getQuesId() {
@@ -95,6 +102,14 @@ public class Question
 
     public void setOption4(String option4) {
         this.option4 = option4;
+    }
+
+    public String getGivenAnswer() {
+        return givenAnswer;
+    }
+
+    public void setGivenAnswer(String givenAnswer) {
+        this.givenAnswer = givenAnswer;
     }
 
     public String getAnswer() {
