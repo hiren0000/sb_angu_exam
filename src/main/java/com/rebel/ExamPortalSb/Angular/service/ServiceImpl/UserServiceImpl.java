@@ -56,8 +56,21 @@ public class UserServiceImpl implements UserService
         return local;
     }
 
+    //Updaitng user
+    @Override
+    public User updateUser(User user)
+    {
+        return this.userRepo.save(user);
+    }
 
+    //delete user
+    @Override
+    public void deleteUser(Integer id)
+    {
+        this.userRepo.deleteById(id);
+        System.out.println("user successfully deleted with this User id"+ id);
 
+    }
 
     @Override
     public User getUser(String username)

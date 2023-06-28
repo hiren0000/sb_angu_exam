@@ -4,6 +4,7 @@ import com.rebel.ExamPortalSb.Angular.models.Role;
 import com.rebel.ExamPortalSb.Angular.models.User;
 import com.rebel.ExamPortalSb.Angular.models.UserRole;
 import com.rebel.ExamPortalSb.Angular.service.UserService;
+import com.rebel.ExamPortalSb.Angular.util.ApiRepsonse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,20 @@ public class UserController
         roles.add(new UserRole(user, role));
 
         return new ResponseEntity<>(this.userService.createUser(user, roles), HttpStatus.OK);
+    }
+
+    //update user
+    @PutMapping("/")
+    public ResponseEntity<User> updateUser(@RequestBody User user)
+    {
+       return new ResponseEntity<>( this.userService.updateUser(user), HttpStatus.OK);
+    }
+
+    //delete user
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiRepsonse> deleteUser(@PathVariable Integer id)
+    {
+        return new ResponseEntity<>(new ApiRepsonse("User delete successfully with userId"+" "), HttpStatus.OK);
     }
 
 
